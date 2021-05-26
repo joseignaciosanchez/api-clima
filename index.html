@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api Clima</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#formulario').submit(function() {
+                    var valorCity = $('#txtCity').val();                    
+                    var url = "http://api.openweathermap.org/data/2.5/weather?q="+valorCity+",us&&appid=66d029d02c82d75ea0304f80c24dc71a";
+                    //console.log(url);                                                                      
+                    $.get(url, function(res) {
+                        //console.log(res);
+                        //console.log(res.weather[0].description);
+                        $('#City').text(valorCity+': ');                        
+                        $('#lblSky').text(res.weather[0].description);                        
+                        $('#lbltemp').text(res.main.temp +" F");                     
+                        $('#lblCoordLat').text(res.coord.lat+", ");                    
+                        $('#lblCoordLon').text(res.coord.lon); 
+                    }, 'json'); 
+                    return false;                                       
+                    });                      
+        });
+    </script>
+</head>
+<body>
+    <form id="formulario" method="get">
+        <label>City:</label>
+        <input id="txtCity" type="text">
+        <input type="submit" value="Submit Jquery">
+    </form><br>
+    <label id="City"></label>
+    <label id="lblSky"></label><br><br>
+    <label>Temperature: </label>
+    <label id="lbltemp"></label><br><br>
+    <label>Coord: </label>
+    <label id="lblCoordLat"></label>
+    <label id="lblCoordLon"></label>
+</body>
+</html>
